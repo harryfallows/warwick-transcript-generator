@@ -1,15 +1,16 @@
 package main
 
 import (
-    "golang.org/x/net/html"
-    "io"
-	"strings"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
-	"fmt"
+	"strings"
+
+	"golang.org/x/net/html"
 )
 
-//Retrieves all information about all modules 
+//Retrieves all information about all modules
 func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInfo map[string]string) {
 
 	htmlTok := html.NewTokenizer(htmlReader)
@@ -18,7 +19,7 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 
 	yearInfo = make(map[string]string)
 	modules = make(map[string]map[string]string)
-	
+
 	for {
 
 		curTok := htmlTok.Next()
@@ -35,7 +36,7 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 			isH3 := cT.Data == "h3"
 
 			if isSpan {
-			
+
 				tokClass := cT.Attr[0].Val
 
 				if tokClass == "mod-code" {
@@ -44,12 +45,12 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 					curModCode = htmlTok.Token().Data
 					modules[curModCode] = make(map[string]string, 5)
 
-				}	else if tokClass == "mod-name" {
+				} else if tokClass == "mod-name" {
 
 					curTok = htmlTok.Next()
 					modules[curModCode]["Name"] = htmlTok.Token().Data
 
-				}	else if tokClass == "mod-reg-summary-item" {
+				} else if tokClass == "mod-reg-summary-item" {
 
 					htmlTok.Next()
 					htmlTok.Next()
@@ -66,9 +67,8 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 				if cT.Attr != nil {
 
 					continue
-					
+
 				}
-				
 
 				htmlTok.Next()
 
@@ -87,27 +87,25 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 				fmt.Println(yearInfo)
 
 			}
-			
 
-			
 		}
 
-		
 	}
 
 }
 
+// main function, mainly used to test atm
 func main() {
 
 	htm, err := ioutil.ReadFile("test_data/test.htm")
 
-    if err != nil {
-        log.Fatal(err)
-    }
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    text := string(htm)
-    doc := strings.NewReader(text)
+	text := string(htm)
+	doc := strings.NewReader(text)
 	modules, yearInfo := scrape(doc)
 	GenerateLatex(modules, yearInfo)
-    
+
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/rwestlund/gotex"
 )
 
+// generates tables based on scraped info
 func generateTable(template string, year string, modules map[string]map[string]string, yearInfo map[string]string) (table string) {
 
 	var rows string
@@ -46,6 +47,7 @@ func generateTable(template string, year string, modules map[string]map[string]s
 
 }
 
+// run latex compilation
 func compileLatex(document string) (pdf []byte) {
 
 	var err error
@@ -66,6 +68,7 @@ func compileLatex(document string) (pdf []byte) {
 	return pdf
 }
 
+// GenerateLatex ties together all latex generation related code
 func GenerateLatex(modules map[string]map[string]string, yearInfo map[string]string) {
 
 	template, _ := ioutil.ReadFile("resources/template.tex")
