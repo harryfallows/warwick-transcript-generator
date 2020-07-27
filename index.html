@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Warwick Transcript Generator</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+    </head>
+    <body class="has-background-grey-lighter">
+        <section class="section">
+            <div class="container">
+                <form>
+                    <div
+                        class="column is-three-fifths is-offset-one-fifth is-centered has-background-white box"
+                    >
+                        <div
+                            class="column has-text-centered has-background-grey-lighter box"
+                        >
+                            <p class="title is-1">
+                                Warwick Transcript Generator
+                            </p>
+                        </div>
+                        <div
+                            class="column is-three-fifths is-offset-one-fifth has-text-centered has-background-grey-lighter box"
+                        >
+                            <p class="subtitle is-3">Personal Info:</p>
+                            <div class="field">
+                                <div class="control">
+                                    <input
+                                        class="input is-rounded"
+                                        type="text"
+                                        placeholder="Full Name"
+                                    />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input
+                                        class="input is-rounded"
+                                        type="text"
+                                        placeholder="Course Name"
+                                    />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input
+                                        class="input is-rounded"
+                                        type="text"
+                                        placeholder="Graduation Year"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="column is-three-fifths is-offset-one-fifth has-text-centered has-background-grey-lighter box"
+                        >
+                            <p class="subtitle is-3">Upload Tabula Pages:</p>
+                            <p class="subtitle is-20">
+                                Use the button below to upload the saved Tabula
+                                html page. To upload multiple years worth of
+                                results, use the "+" button to generate another
+                                file upload button. Upload files in the order
+                                you wish them to appear on the transcript.
+                            </p>
+                            <div id="uploadboxes">
+                                <div
+                                    class="column is-offset-2 is-two-thirds box"
+                                    id="uploadbox0"
+                                >
+                                    <div class="field">
+                                        <div
+                                            id="inputFile0"
+                                            class="file has-name is-centered is-gray"
+                                        >
+                                            <label class="file-label">
+                                                <input
+                                                    class="file-input"
+                                                    type="file"
+                                                    name="resume"
+                                                />
+                                                <span class="file-cta">
+                                                    <span class="file-icon">
+                                                        <i
+                                                            class="fas fa-upload"
+                                                        ></i>
+                                                    </span>
+                                                    <span class="file-label">
+                                                    </span>
+                                                </span>
+
+                                                <span class="file-name"
+                                                    >Choose a file...</span
+                                                >
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div
+                                            id="inputFile1"
+                                            class="file has-name is-centered is-gray"
+                                        >
+                                            <label class="file-label">
+                                                <input
+                                                    class="file-input"
+                                                    type="file"
+                                                    name="resume"
+                                                />
+                                                <span class="file-cta">
+                                                    <span class="file-icon">
+                                                        <i
+                                                            class="fas fa-upload"
+                                                        ></i>
+                                                    </span>
+                                                    <span class="file-label">
+                                                    </span>
+                                                </span>
+
+                                                <span class="file-name"
+                                                    >Choose a file...</span
+                                                >
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div
+                                            id="inputFile2"
+                                            class="file has-name is-centered is-gray"
+                                        >
+                                            <label class="file-label">
+                                                <input
+                                                    class="file-input"
+                                                    type="file"
+                                                    name="resume"
+                                                />
+                                                <span class="file-cta">
+                                                    <span class="file-icon">
+                                                        <i
+                                                            class="fas fa-upload"
+                                                        ></i>
+                                                    </span>
+                                                    <span class="file-label">
+                                                    </span>
+                                                </span>
+
+                                                <span class="file-name"
+                                                    >Choose a file...</span
+                                                >
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div
+                                            id="inputFile3"
+                                            class="file has-name is-centered is-gray"
+                                        >
+                                            <label class="file-label">
+                                                <input
+                                                    class="file-input"
+                                                    type="file"
+                                                    name="resume"
+                                                />
+                                                <span class="file-cta">
+                                                    <span class="file-icon">
+                                                        <i
+                                                            class="fas fa-upload"
+                                                        ></i>
+                                                    </span>
+                                                    <span class="file-label">
+                                                    </span>
+                                                </span>
+
+                                                <span class="file-name"
+                                                    >Choose a file...</span
+                                                >
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="column is-three-fifths is-offset-one-fifth has-text-centered has-background-grey-lighter box"
+                        >
+                            <p class="subtitle is-3">Options:</p>
+                            <div class="control">
+                                <p class="subtitle is-5">
+                                    Select which Warwick logo you would like to
+                                    appear on the transcript:
+                                </p>
+                                <label class="radio">
+                                    <figure class="image is-128x128 is-square">
+                                        <img src="resources/trad_bw.png" />
+                                    </figure>
+                                    <input
+                                        type="radio"
+                                        name="logo"
+                                        value="resources/trad_bw.pdf"
+                                        checked
+                                    />
+                                </label>
+                                <label class="radio">
+                                    <figure class="image is-128x128 is-square">
+                                        <img src="resources/trad.png" />
+                                    </figure>
+                                    <input
+                                        type="radio"
+                                        name="logo"
+                                        value="resources/trad.pdf"
+                                        value
+                                    />
+                                </label>
+                                <label class="radio">
+                                    <figure class="image is-128x128 is-square">
+                                        <img src="resources/modern.png" />
+                                    </figure>
+                                    <input
+                                        type="radio"
+                                        name="logo"
+                                        value="resources/modern.pdf"
+                                    />
+                                </label>
+                            </div>
+                            <label class="checkbox">
+                                <input type="checkbox" checked />
+                                Include disclaimer: "This transcript has been
+                                generated using data from "Tabula", a tool for
+                                navigating information relating to Warwick staff
+                                and students. This transcript is being submitted
+                                in place of an official transcript, since an
+                                official transcript has not been provided by the
+                                university. The tool used to generate this
+                                transcript is available at: {}."
+                            </label>
+                        </div>
+                        <div class="buttons is-centered has-text-centered">
+                            <a class="button is-black" onclick="submitForm()"
+                                >Generate PDF</a
+                            >
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </body>
+
+    <script
+        defer
+        src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <script>
+        const inputFile0 = document.querySelector(
+            "#inputFile0 input[type=file]"
+        );
+        const inputFile1 = document.querySelector(
+            "#inputFile1 input[type=file]"
+        );
+        const inputFile2 = document.querySelector(
+            "#inputFile2 input[type=file]"
+        );
+        const inputFile3 = document.querySelector(
+            "#inputFile3 input[type=file]"
+        );
+        inputFile0.onchange = () => {
+            if (inputFile0.files.length > 0) {
+                const fileName = document.querySelector(
+                    "#inputFile0 .file-name"
+                );
+                fileName.textContent = inputFile0.files[0].name;
+            }
+        };
+        inputFile1.onchange = () => {
+            if (inputFile1.files.length > 0) {
+                const fileName = document.querySelector(
+                    "#inputFile1 .file-name"
+                );
+                fileName.textContent = inputFile1.files[0].name;
+            }
+        };
+        inputFile2.onchange = () => {
+            if (inputFile2.files.length > 0) {
+                const fileName = document.querySelector(
+                    "#inputFile2 .file-name"
+                );
+                fileName.textContent = inputFile2.files[0].name;
+            }
+        };
+        inputFile3.onchange = () => {
+            if (inputFile3.files.length > 0) {
+                const fileName = document.querySelector(
+                    "#inputFile3 .file-name"
+                );
+                fileName.textContent = inputFile3.files[0].name;
+            }
+        };
+
+        function submitForm() {
+            var inputs, index;
+
+            inputs = document.getElementsByTagName("input");
+            for (index = 0; index < inputs.length; ++index) {
+                console.log(inputs[index]);
+            }
+        }
+    </script>
+</html>
