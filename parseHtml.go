@@ -1,14 +1,27 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
+	"sort"
 	"strings"
 
 	"golang.org/x/net/html"
 )
+
+type postRequest struct {
+	Name       string            `json:"name"`
+	Course     string            `json:"course"`
+	Grad       string            `json:"grad"`
+	Logo       string            `json:"logo"`
+	Disclaimer bool              `json:"disclaimer"`
+	Reverse    bool              `json:"reverse"`
+	Files      map[string]string `json:"files"`
+}
 
 //Retrieves all information about all modules
 func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInfo map[string]string) {
@@ -84,8 +97,6 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 					yearInfo[yearAttr] = yearVal
 				}
 
-				fmt.Println(yearInfo)
-
 			}
 
 		}
@@ -94,18 +105,59 @@ func scrape(htmlReader io.Reader) (modules map[string]map[string]string, yearInf
 
 }
 
+func handleRequest(w http.ResponseWriter, r *http.Request) {
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
+	}
+	var pReq postRequest
+	err = json.Unmarshal(body, &pReq)
+
+	row_template, _ := ioutil.ReadFile("resources/row_template.tex")
+
+	var tables string
+	years := make([]string, 0)
+	for y, _ := range pReq.Files {
+		years = append(years, y)
+	}
+	sort.Strings(years)
+	if pReq.Reverse {
+		for i, j := 0, len(years)-1; i < j; i, j = i+1, j-1 {
+			years[i], years[j] = years[j], years[i]
+		}
+	}
+	for _, y := range years {
+		doc := strings.NewReader(pReq.Files[y])
+		modules, yearInfo := scrape(doc)
+		tables += GenerateTable(string(row_template), y, modules, yearInfo)
+	}
+
+	var info string
+	if pReq.Name != "" {
+		info += `\textbf{Name:} ` + pReq.Name + `\newline`
+	}
+	if pReq.Course != "" {
+		info += `\textbf{Course Name:} ` + pReq.Course + `\newline`
+	}
+	if pReq.Grad != "" {
+		info += `\textbf{Graduation Year:} ` + pReq.Grad + `\newline`
+	}
+
+	template, _ := ioutil.ReadFile("resources/template.tex")
+	file := strings.Replace(string(template), "{tables}", tables, 1)
+	file = strings.Replace(file, "{info}", info, 1)
+	file = strings.Replace(file, "{logo}", pReq.Logo, 1)
+	ioutil.WriteFile("output/temp.pdf", compileLatex(file), 0644)
+}
+
 // main function, mainly used to test atm
 func main() {
 
-	htm, err := ioutil.ReadFile("test_data/test.htm")
+	http.HandleFunc("/", handleRequest)
 
-	if err != nil {
+	fmt.Printf("Starting server for testing HTTP POST...\n")
+	if err := http.ListenAndServe(":3000", nil); err != nil {
 		log.Fatal(err)
 	}
-
-	text := string(htm)
-	doc := strings.NewReader(text)
-	modules, yearInfo := scrape(doc)
-	GenerateLatex(modules, yearInfo)
-
 }

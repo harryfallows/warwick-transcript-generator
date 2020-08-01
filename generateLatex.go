@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"sort"
@@ -12,7 +10,7 @@ import (
 )
 
 // generates tables based on scraped info
-func generateTable(template string, year string, modules map[string]map[string]string, yearInfo map[string]string) (table string) {
+func GenerateTable(template string, year string, modules map[string]map[string]string, yearInfo map[string]string) (table string) {
 
 	var rows string
 
@@ -36,8 +34,6 @@ func generateTable(template string, year string, modules map[string]map[string]s
 		yearInfoStr += `\multicolumn{5}{|c|}{\large{` + yearAttr + ": " + strings.Replace(yearVal, `%`, `\%`, -1) + `}} \\ \hline`
 
 	}
-
-	fmt.Println(yearInfoStr)
 
 	template = strings.Replace(template, "{year}", "Year "+year, 1)
 	table = strings.Replace(template, "{rows}", rows, 1)
@@ -68,14 +64,11 @@ func compileLatex(document string) (pdf []byte) {
 	return pdf
 }
 
-// GenerateLatex ties together all latex generation related code
-func GenerateLatex(modules map[string]map[string]string, yearInfo map[string]string) {
+/* // GenerateLatex ties together all latex generation related code
+func GenerateTable(modules map[string]map[string]string, yearInfo map[string]string) string {
 
-	template, _ := ioutil.ReadFile("resources/template.tex")
-	table := generateTable(string(template), "1", modules, yearInfo)
 
-	fmt.Println(table)
 
-	ioutil.WriteFile("output/temp.pdf", compileLatex(table), 0644)
+	return table
 
-}
+} */
