@@ -80,7 +80,7 @@ submitForm.onclick = function() {
     }
     console.log(dict)
     var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:3000", true);
+    request.open("POST", "http://localhost:8080", true);
     request.setRequestHeader('Content-Type', 'application/json');
     console.log(JSON.stringify(dict))
     request.send(JSON.stringify(dict));

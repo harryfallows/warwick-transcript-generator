@@ -154,10 +154,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 // main function, mainly used to test atm
 func main() {
 
-	http.HandleFunc("/", handleRequest)
+	http.HandleFunc("/post", handleRequest)
 
 	fmt.Printf("Starting server for testing HTTP POST...\n")
-	if err := http.ListenAndServe(":3000", nil); err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
